@@ -1,2 +1,2 @@
 # httpy
-HTTP server library for Python
+HTTP multithread server library for Python.
