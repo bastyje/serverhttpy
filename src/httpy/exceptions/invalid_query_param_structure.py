@@ -1,4 +1,4 @@
-from exceptions.invalid_path_structure import InvalidPathStructureException
+from httpy.exceptions.invalid_path_structure import InvalidPathStructureException
 
 
 class InvalidQueryParamStructureException(InvalidPathStructureException):

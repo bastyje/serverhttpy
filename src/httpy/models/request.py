@@ -1,7 +1,7 @@
-from enums.http_method import HTTPMethod
-from exceptions.invalid_header_structure import InvalidHeaderStructureException
-from exceptions.unsupported_method_specified import UnsupportedMethodSpecifiedException
-from models.uri import URI
+from httpy.enums.http_method import HTTPMethod
+from httpy.exceptions.invalid_header_structure import InvalidHeaderStructureException
+from httpy.exceptions.unsupported_method_specified import UnsupportedMethodSpecifiedException
+from httpy.models.uri import URI
 
 
 class Request:

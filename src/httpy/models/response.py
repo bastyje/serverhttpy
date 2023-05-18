@@ -1,4 +1,5 @@
-from enums.status_code import StatusCode
+from httpy.enums.status_code import StatusCode
+from src.httpy import supported_protocol
 
 
 class Response:
@@ -27,8 +28,8 @@ class Response:
 
         return base
 
-    def __init__(self, status_code: StatusCode, protocol: str, headers: dict = None, body: str = None):
+    def __init__(self, status_code: StatusCode, headers: dict = None, body: str = None):
         self.status_code = status_code
-        self.protocol = protocol
+        self.protocol = supported_protocol
         self.headers = headers
         self.body = body

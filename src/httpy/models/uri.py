@@ -1,6 +1,6 @@
-from exceptions.invalid_path_structure import InvalidPathStructureException
-from exceptions.invalid_query_param_structure import InvalidQueryParamStructureException
-from models.path import Path
+from httpy.exceptions.invalid_path_structure import InvalidPathStructureException
+from httpy.exceptions.invalid_query_param_structure import InvalidQueryParamStructureException
+from httpy.models.path import Path
 
 
 class URI:
