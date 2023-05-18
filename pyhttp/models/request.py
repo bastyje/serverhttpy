@@ -1,7 +1,7 @@
-from httpy.enums.http_method import HTTPMethod
-from httpy.exceptions.invalid_header_structure import InvalidHeaderStructureException
-from httpy.exceptions.unsupported_method_specified import UnsupportedMethodSpecifiedException
-from httpy.models.uri import URI
+from pyhttp.enums.http_method import HTTPMethod
+from pyhttp.exceptions.invalid_header_structure import InvalidHeaderStructureException
+from pyhttp.exceptions.unsupported_method_specified import UnsupportedMethodSpecifiedException
+from pyhttp.models.uri import URI
 
 
 class Request:

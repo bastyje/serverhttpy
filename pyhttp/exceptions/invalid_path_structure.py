@@ -1,4 +1,4 @@
-from httpy.exceptions.invalid_header_structure import InvalidHeaderStructureException
+from pyhttp.exceptions.invalid_header_structure import InvalidHeaderStructureException
 
 
 class InvalidPathStructureException(InvalidHeaderStructureException):

@@ -1,10 +1,11 @@
 from typing import Callable
 
-from httpy.enums.http_method import HTTPMethod
-from httpy.exceptions.no_action_registered_in_endpoint import NoActionRegisteredInEndpointException
-from httpy.models.path import Path
-from httpy.models.request import Request
-from httpy.models.response import Response
+from pyhttp.enums.http_method import HTTPMethod
+from pyhttp.exceptions.no_action_registered_in_endpoint import NoActionRegisteredInEndpointException
+from pyhttp.models.path import Path
+from pyhttp.models.request import Request
+from pyhttp.models.response import Response
+
 
 class Endpoint:
     path: Path
