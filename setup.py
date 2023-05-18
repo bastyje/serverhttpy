@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name='py-http',
+    name='serverhttpy',
     version='0.0.1',
     author='Sebastian Górka, Michał Ziober',
     url='https://github.com/bastyje/py-http',

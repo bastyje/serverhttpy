@@ -1,12 +1,12 @@
 import time
 
-from pyhttp.enums.http_method import HTTPMethod
-from pyhttp.enums.status_code import StatusCode
-from pyhttp.models.endpoint import Endpoint
-from pyhttp.models.path import Path
-from pyhttp.models.request import Request
-from pyhttp.models.response import Response
-from pyhttp.server import Server
+from serverhttpy.enums.http_method import HTTPMethod
+from serverhttpy.enums.status_code import StatusCode
+from serverhttpy.models.endpoint import Endpoint
+from serverhttpy.models.path import Path
+from serverhttpy.models.request import Request
+from serverhttpy.models.response import Response
+from serverhttpy.server import Server
 
 # Example usage of Server
 

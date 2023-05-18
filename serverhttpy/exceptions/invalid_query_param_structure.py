@@ -1,4 +1,4 @@
-from pyhttp.exceptions.invalid_path_structure import InvalidPathStructureException
+from serverhttpy.exceptions.invalid_path_structure import InvalidPathStructureException
 
 
 class InvalidQueryParamStructureException(InvalidPathStructureException):
