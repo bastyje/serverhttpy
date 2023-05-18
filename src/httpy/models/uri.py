@@ -2,7 +2,6 @@ from httpy.exceptions.invalid_path_structure import InvalidPathStructureExceptio
 from httpy.exceptions.invalid_query_param_structure import InvalidQueryParamStructureException
 from httpy.models.path import Path
 
-
 class URI:
     path: Path
     query_params: dict
@@ -35,4 +34,3 @@ class URI:
                     raise InvalidQueryParamStructureException(param)
 
                 self.query_params[key_value[0]] = key_value[1]
-

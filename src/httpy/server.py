@@ -70,10 +70,15 @@ class Server:
         self.__endpoints[endpoint] = endpoint
 
     def __execute_action(self, request: Request) -> Response:
-        searched_endpoint = Endpoint(request.uri.path, request.method)
-        if searched_endpoint not in self.__endpoints:
+        searched_enpoint = None
+        for endpoint in self.__endpoints:
+            if Server.compare_paths(endpoint.path.path_elements, request.uri.path.path_elements):
+                searched_enpoint = endpoint
+        if searched_enpoint == None:
             return Response(StatusCode.NotFound)
-        return self.__endpoints[searched_endpoint].execute(request)
+        request_arguments = Server.retrieve_arguments(endpoint.path.path_elements, request.uri.path.path_elements)
+        # TODO: pass request arguments
+        return searched_enpoint.execute(request)
 
     def __handle_request(self, request_string: str) -> str:
         request: Request | None = None
@@ -93,3 +98,35 @@ class Server:
         finally:
             print(f'Request finished|{request}|{response}')
             return repr(response)
+        
+    # TODO: make private
+    def compare_paths(endpoint_path_elements, request_path_elements):
+        endpoint_elements_keys = list(endpoint_path_elements.keys())
+        request_elements_keys = list(request_path_elements.keys())
+        for i in range(len(endpoint_path_elements)):
+            endpoint_key = endpoint_elements_keys[i]
+            if endpoint_path_elements[endpoint_key] == True:
+                endpoint_elements_keys[i] = '/'
+                request_elements_keys[i] = '/'
+            else:
+                endpoint_elements_keys[i] += '/'
+                request_elements_keys[i] += '/'
+        print(endpoint_elements_keys)
+        print(request_elements_keys)
+        return endpoint_elements_keys == request_elements_keys
+
+    # TODO: make private 
+    def retrieve_arguments(endpoint_path_elements, request_path_elements):
+        arguments = dict()
+        endpoint_elements_keys = list(endpoint_path_elements.keys())
+        request_elements_keys = list(request_path_elements.keys())
+        for i in range(len(endpoint_path_elements)):
+            endpoint_key = endpoint_elements_keys[i]
+            if endpoint_path_elements[endpoint_key] == True:
+                arguments[endpoint_key] = request_elements_keys[i]
+
+        print(arguments)
+        return arguments
+
+
+
