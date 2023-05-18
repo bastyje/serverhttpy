@@ -1,3 +1,5 @@
+import time
+
 from enums.status_code import StatusCode
 from models.path import Path
 from models.request import Request
@@ -8,10 +10,11 @@ from server import Server
 
 if __name__ == '__main__':
     def index(request: Request):
+        time.sleep(1.0)
         return Response(StatusCode.OK, 'HTTP/1.1', body='data', headers={
             'Content-Type': 'text/plain'
         })
 
     server = Server('0.0.0.0', 8080)
-    server.register_action(Path('/'), index)
+    server.register_action(Path('/movie/{movieId}'), index)
     server.serve()

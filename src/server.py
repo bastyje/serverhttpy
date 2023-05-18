@@ -1,3 +1,4 @@
+import multiprocessing as mp
 import socket
 import traceback
 from typing import Callable
@@ -14,13 +15,15 @@ class Server:
     __port: int
     __actions: dict
     __bufsize: int
+    __threads_number: int
 
-    def __init__(self, ip: str, port: int = 80, protocol: str = 'HTTP/1.1', bufsize: int = 8192):
+    def __init__(self, ip: str, port: int = 80, protocol: str = 'HTTP/1.1', bufsize: int = 8192, threads_number: int = mp.cpu_count()):
         self.__ip = ip
         self.__port = port
         self.__actions = dict()
         self.__protocol = protocol
         self.__bufsize = bufsize
+        self.__threads_number = threads_number
 
     def serve(self):
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -30,15 +33,34 @@ class Server:
 
         print(f'Listening on {self.__ip}:{self.__port}')
 
+        processes = list()
+        recv_lock = mp.Lock()
+        lock = mp.Lock()
+
         try:
-            while True:
-                client_connection, client_address = server_socket.accept()
-                request = client_connection.recv(self.__bufsize)
-                response = self.__handle_request(request.decode())
-                client_connection.sendall(response.encode())
-                client_connection.close()
+            for i in range(self.__threads_number):
+                processes.append(mp.Process(target=self.__serve_loop, args=(server_socket, lock)))
+                processes[i].start()
+        except KeyboardInterrupt:
+            print('Server stopped')
         finally:
             server_socket.close()
+            for i in range(self.__threads_number):
+                processes[i].join()
+
+    def __serve_loop(self, server_socket: socket.socket, lock: mp.Lock):
+        while True:
+            lock.acquire()
+            client_connection, client_address = server_socket.accept()
+            request = client_connection.recv(self.__bufsize)
+            lock.release()
+
+            response = self.__handle_request(request.decode())
+
+            # lock.acquire()
+            client_connection.sendall(response.encode())
+            client_connection.close()
+            # lock.release()
 
     def register_action(self, path: Path, action: Callable[[Request], Response]):
         self.__actions[path] = action
