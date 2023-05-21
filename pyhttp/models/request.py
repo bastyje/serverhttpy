@@ -10,6 +10,7 @@ class Request:
     headers: dict
     uri: URI
     body: str
+    request_arguments: dict
 
     def __str__(self):
         return f'{self.method.value} {self.uri} {self.protocol}'

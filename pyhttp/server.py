@@ -70,15 +70,16 @@ class Server:
         self.__endpoints[endpoint] = endpoint
 
     def __execute_action(self, request: Request) -> Response:
-        searched_enpoint = None
+        searched_endpoint = None
         for endpoint in self.__endpoints:
             if Server.compare_paths(endpoint.path.path_elements, request.uri.path.path_elements):
-                searched_enpoint = endpoint
-        if searched_enpoint == None:
+                searched_endpoint = endpoint
+                break
+        if searched_endpoint == None:
             return Response(StatusCode.NotFound)
-        request_arguments = Server.retrieve_arguments(endpoint.path.path_elements, request.uri.path.path_elements)
+        request.request_arguments = Server.retrieve_arguments(endpoint.path.path_elements, request.uri.path.path_elements)
         # TODO: pass request arguments
-        return searched_enpoint.execute(request)
+        return searched_endpoint.execute(request)
 
     def __handle_request(self, request_string: str) -> str:
         request: Request | None = None
@@ -103,6 +104,8 @@ class Server:
     def compare_paths(endpoint_path_elements, request_path_elements):
         endpoint_elements_keys = list(endpoint_path_elements.keys())
         request_elements_keys = list(request_path_elements.keys())
+        if len(endpoint_elements_keys) != len(request_elements_keys):
+            return False
         for i in range(len(endpoint_path_elements)):
             endpoint_key = endpoint_elements_keys[i]
             if endpoint_path_elements[endpoint_key] == True:
