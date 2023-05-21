@@ -70,15 +70,18 @@ class Server:
         self.__endpoints[endpoint] = endpoint
 
     def __execute_action(self, request: Request) -> Response:
+        potential_endpoints = []
         searched_endpoint = None
         for endpoint in self.__endpoints:
             if Server.compare_paths(endpoint.path.path_elements, request.uri.path.path_elements):
-                searched_endpoint = endpoint
-                break
-        if searched_endpoint == None:
+                potential_endpoints.append(endpoint)
+        if len(potential_endpoints) == 0:
             return Response(StatusCode.NotFound)
-        request.request_arguments = Server.retrieve_arguments(endpoint.path.path_elements, request.uri.path.path_elements)
-        # TODO: pass request arguments
+        elif len(potential_endpoints) > 1:
+            searched_endpoint = Server.get_correct_endpoint(potential_endpoints, request.uri.path.path_elements)
+        else:
+            searched_endpoint = potential_endpoints[0]
+        request.request_arguments = Server.retrieve_arguments(searched_endpoint.path.path_elements, request.uri.path.path_elements)
         return searched_endpoint.execute(request)
 
     def __handle_request(self, request_string: str) -> str:
@@ -114,9 +117,23 @@ class Server:
             else:
                 endpoint_elements_keys[i] += '/'
                 request_elements_keys[i] += '/'
-        print(endpoint_elements_keys)
-        print(request_elements_keys)
         return endpoint_elements_keys == request_elements_keys
+
+    # TODO: make private
+    def get_correct_endpoint(potential_endpoints, request_path_elements):
+        path_elements_keys = list(request_path_elements.keys())
+        for i in range(len(path_elements_keys)):
+            all_none = True
+            for endpoint in potential_endpoints:
+                endpoint_path_keys = list(endpoint.path.path_elements.keys())
+                
+                if path_elements_keys[i] in endpoint_path_keys:
+                    all_none = False
+            if not all_none:
+                for endpoint in potential_endpoints:
+                    if not path_elements_keys[i] == list(endpoint.path.path_elements.keys())[i]:
+                        potential_endpoints.remove(endpoint)
+        return potential_endpoints[0]
 
     # TODO: make private 
     def retrieve_arguments(endpoint_path_elements, request_path_elements):
@@ -128,7 +145,6 @@ class Server:
             if endpoint_path_elements[endpoint_key] == True:
                 arguments[endpoint_key] = request_elements_keys[i]
 
-        print(arguments)
         return arguments
 
 
