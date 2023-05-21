@@ -3,12 +3,12 @@ import socket
 import traceback
 from typing import Dict
 
-from pyhttp.enums.status_code import StatusCode
-from pyhttp.exceptions.invalid_request_structure import InvalidRequestStructureException
-from pyhttp.exceptions.unsupported_method_specified import UnsupportedMethodSpecifiedException
-from pyhttp.models.endpoint import Endpoint
-from pyhttp.models.request import Request
-from pyhttp.models.response import Response
+from serverhttpy.enums.status_code import StatusCode
+from serverhttpy.exceptions.invalid_request_structure import InvalidRequestStructureException
+from serverhttpy.exceptions.unsupported_method_specified import UnsupportedMethodSpecifiedException
+from serverhttpy.models.endpoint import Endpoint
+from serverhttpy.models.request import Request
+from serverhttpy.models.response import Response
 
 
 class Server:

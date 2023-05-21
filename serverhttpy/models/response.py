@@ -1,5 +1,5 @@
-from pyhttp.enums.status_code import StatusCode
-from pyhttp import supported_protocol
+from serverhttpy.enums.status_code import StatusCode
+from serverhttpy import supported_protocol
 
 
 class Response:
