@@ -11,10 +11,10 @@ class StatusCode(Enum):
 
     def description(self):
         return {
-            StatusCode.OK: 'OK',
-            StatusCode.BadRequest: 'Bad Request',
-            StatusCode.NotFound: 'Not Found',
-            StatusCode.MethodNotAllowed: 'Method Not Allowed',
-            StatusCode.InternalServerError: 'Internal Server Error',
-            StatusCode.NotImplemented: 'Not Implemented'
+            StatusCode.OK: "OK",
+            StatusCode.BadRequest: "Bad Request",
+            StatusCode.NotFound: "Not Found",
+            StatusCode.MethodNotAllowed: "Method Not Allowed",
+            StatusCode.InternalServerError: "Internal Server Error",
+            StatusCode.NotImplemented: "Not Implemented",
         }[self]

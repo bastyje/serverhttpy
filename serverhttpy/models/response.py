@@ -9,7 +9,9 @@ class Response:
     body: str
 
     def __str__(self):
-        return f'{self.protocol} {self.status_code.value} {self.status_code.description()}'
+        return (
+            f"{self.protocol} {self.status_code.value} {self.status_code.description()}"
+        )
 
     def __repr__(self):
         base = self.__str__()
@@ -17,13 +19,13 @@ class Response:
         if self.headers is not None:
             for index, header in enumerate(self.headers):
                 if index == 0:
-                    base += '\n'
-                base += f'{header}: {self.headers[header]}'
+                    base += "\n"
+                base += f"{header}: {self.headers[header]}"
                 if index <= len(self.headers) - 1:
-                    base += '\n'
+                    base += "\n"
 
         if self.body is not None and len(self.body) > 0:
-            base += '\n'
+            base += "\n"
             base += self.body
 
         return base
