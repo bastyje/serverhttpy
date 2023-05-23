@@ -1,3 +1,4 @@
+import sys
 import time
 
 from serverhttpy.enums.http_method import HTTPMethod
@@ -8,7 +9,7 @@ from serverhttpy.models.request import Request
 from serverhttpy.models.response import Response
 from serverhttpy.server import Server
 
-from sample_data import Sample_data
+from examples.sample_data import Sample_data
 
 # Example usage of Server
 
@@ -96,7 +97,8 @@ if __name__ == "__main__":
             StatusCode.OK, body=body, headers={"Content-Type": "text/plain"}
         )
 
-    server = Server("0.0.0.0", 8080, threads_number=10)
+    thread_num = int(sys.argv[1])
+    server = Server("0.0.0.0", 8080, threads_number=thread_num)
     server.register_endpoint(Endpoint(Path("/"), HTTPMethod.GET, index))
     server.register_endpoint(
         Endpoint(Path("/{name}/{age}"), HTTPMethod.GET, say_name_and_age)
