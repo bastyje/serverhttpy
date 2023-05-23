@@ -86,19 +86,19 @@ class Server:
         potential_endpoints = []
         searched_endpoint = None
         for endpoint in self.__endpoints:
-            if Server.compare_paths(
+            if Server.__compare_paths(
                 endpoint.path.path_elements, request.uri.path.path_elements
             ):
                 potential_endpoints.append(endpoint)
         if len(potential_endpoints) == 0:
             return Response(StatusCode.NotFound)
         elif len(potential_endpoints) > 1:
-            searched_endpoint = Server.get_correct_endpoint(
+            searched_endpoint = Server.__get_correct_endpoint(
                 potential_endpoints, request.uri.path.path_elements
             )
         else:
             searched_endpoint = potential_endpoints[0]
-        request.request_arguments = Server.retrieve_arguments(
+        request.request_arguments = Server.__retrieve_arguments(
             searched_endpoint.path.path_elements, request.uri.path.path_elements
         )
         return searched_endpoint.execute(request)
@@ -122,8 +122,7 @@ class Server:
             print(f"Request finished|{request}|{response}")
             return repr(response)
 
-    # TODO: make private
-    def compare_paths(endpoint_path_elements, request_path_elements):
+    def __compare_paths(endpoint_path_elements, request_path_elements):
         endpoint_elements_keys = list(endpoint_path_elements.keys())
         request_elements_keys = list(request_path_elements.keys())
         if len(endpoint_elements_keys) != len(request_elements_keys):
@@ -138,8 +137,7 @@ class Server:
                 request_elements_keys[i] += "/"
         return endpoint_elements_keys == request_elements_keys
 
-    # TODO: make private
-    def get_correct_endpoint(potential_endpoints, request_path_elements):
+    def __get_correct_endpoint(potential_endpoints, request_path_elements):
         path_elements_keys = list(request_path_elements.keys())
         for i in range(len(path_elements_keys)):
             all_none = True
@@ -157,8 +155,7 @@ class Server:
                         potential_endpoints.remove(endpoint)
         return potential_endpoints[0]
 
-    # TODO: make private
-    def retrieve_arguments(endpoint_path_elements, request_path_elements):
+    def __retrieve_arguments(endpoint_path_elements, request_path_elements):
         arguments = dict()
         endpoint_elements_keys = list(endpoint_path_elements.keys())
         request_elements_keys = list(request_path_elements.keys())

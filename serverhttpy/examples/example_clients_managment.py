@@ -13,7 +13,6 @@ from sample_data import Sample_data
 # Example usage of Server
 
 data = Sample_data()
-print(data)
 
 if __name__ == "__main__":
 
@@ -34,7 +33,6 @@ if __name__ == "__main__":
         )
 
     def get_clients(request: Request) -> Response:
-        print(data.clients)
         body = "Clients:\n"
         clients_keys = data.clients.keys()
         for key in clients_keys:
@@ -60,7 +58,6 @@ if __name__ == "__main__":
                 clientName=clientName, clientSurname=clientSurname
             ),
         )
-        print(data.clients[clientId])
         body = "Client with Id {clientId} Name and surname {clientName} {clientSurname} added".format(
             clientId=clientId, clientName=clientName, clientSurname=clientSurname
         )
