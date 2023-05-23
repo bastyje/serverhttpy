@@ -4,7 +4,7 @@ setuptools.setup(
     name='serverhttpy',
     version='0.0.1',
     author='Sebastian Górka, Michał Ziober',
-    url='https://github.com/bastyje/py-http',
+    url='https://github.com/bastyje/serverhttpy',
     python_requires='>=3.10',
     description='Simple web server framework for Python',
     long_description='Simple web server framework for Python',
