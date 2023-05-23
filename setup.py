@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='serverhttpy',
-    version='0.0.4',
+    version='0.0.5',
     author='Sebastian Górka, Michał Ziober',
     url='https://github.com/bastyje/serverhttpy',
     python_requires='>=3.10',
